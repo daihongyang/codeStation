@@ -1,8 +1,9 @@
 //顶部导航组件
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Select, Input, Button } from 'antd'
-export default function NavComp() {
+import { Select, Input } from 'antd'
+import LoginAvatar from '../components/LoginAvatar';
+export default function NavComp(props) {
   return (
     <div className='headerContainer'>
       {/* 头部logo */}
@@ -34,7 +35,7 @@ export default function NavComp() {
       </div>
       {/* 登录按钮 */}
       <div className="loginBtnContainer">
-      <Button type="primary" >注册/登录</Button>
+        <LoginAvatar handleModal={props.handleModal} isModalShow={props.isModalShow}/>
       </div>
     </div>
   )

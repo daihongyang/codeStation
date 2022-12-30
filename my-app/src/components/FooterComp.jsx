@@ -12,7 +12,7 @@ export default function FooterComp() {
                     rel="noreferrer"
                     className="linkItem"
                 >
-                    渡一教育-腾讯课堂
+                    我的-github
                 </a>
                 <a
                     href="http://www.yuanjin.tech/"
@@ -20,7 +20,7 @@ export default function FooterComp() {
                     rel="noreferrer"
                     className="linkItem"
                 >
-                    袁进的博客
+                    我的博客
                 </a>
                 <a
                     href="http://yanhongzhi.com/"
@@ -41,6 +41,7 @@ export default function FooterComp() {
             </p>
             <p>© 2022 - Coder Station</p>
             <p>Powered by Create React App</p>
+            <p>Made by daihongyang</p>
         </div>
     );
 }
