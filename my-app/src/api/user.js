@@ -9,3 +9,21 @@ export function getCaptcha(){
         method:'GET'
     })
 }
+/**
+ * 判断用户是否存在
+ * @param {*} loginId 用户登陆账号
+ * @returns {Boolean} true 存在 false不存在
+ */
+export function isUserExisted(loginId){
+    return request({
+        url:`/api/user/userIsExist/${loginId}`,
+        method:'GET'
+    })
+}
+export function addUser(userInfo){
+    return request({
+        url:`/api/user`,
+        data:userInfo,
+        method:'POST'
+    })
+}

@@ -18,7 +18,7 @@ codeStation仿造思否(segmentDefault)进行页面设计，第一天主要是�
 
 在（一）中提到了登陆注册的按钮有两种状态，一种是未登录的状态，要显示”登录/注册按钮“，另一种状态是已登录状态，要显示用户头像。状态的存储采用了redux进行存储，这里使用了官方的**@reduxjs/toolkit react-redux**。
 
-为了防止代码冗余，根据登录状态显示组件的代码封装成了一个新的组件。***LoginAvatar***组件，用来判断显示什么。该组件的”登录/注册“按钮通过根组件逐层传入而不是在组件内部定义。
+为了防止代码冗余，根据登录状态显示组件的代码封装成了一个新的组件。***LoginAvatar***组件，用来判断显示什么。考虑到要让该组件的功能更纯粹一些，该组件的”登录/注册“按钮的点击事件通过根组件逐层传入而不是在组件内部定义。
 
 整体布局上使用了antd的Avatar外加底部Popover内嵌List
 
@@ -45,8 +45,22 @@ function updateInfo(prev, info, key, setFuc) {
 }
 ```
 
-表单中需要一个验证码，验证码从接口获取，这里引入了**axios**库，封装了request进行请求和相应拦截。同时由于跨域问题，配置了代理文件，这里引入了**http-proxy-middleware**，最终对请求到的data中拿到svg标签
+表单中需要一个验证码，验证码从接口获取，这里引入了**axios**库，封装了request进行请求和相应拦截。同时由于跨域问题，配置了代理文件，这里引入了**http-proxy-middleware**，最终对请求到的data中拿到svg标签语句
 
 值得注意的是渲染html标签的时候，用到了
 
-> dangerouslySetInnerHTML={{ __html: captcha }}
+> dangerouslySetInnerHTML={{ __html: captcha }}            // (类似于vue的v-html)
+
+显示的验证码并不是一成不变的，弹窗关闭再打开会改变，登陆注册的验证码也会有不同，所以useEffect的第二个参数要依赖登录注册radio的value和弹窗显示的状态。
+
+**细节处理：切换登录和注册的时候，input的组件的value绑定会因为Form.Item里面设置的name而导致失效**，解决办法就是把name去掉
+
+参考：[(52条消息) react hooks antd Design里input的值变化不更新_ 北岭有燕的博客-CSDN博客](https://blog.csdn.net/qq_41160739/article/details/120553454)
+
+```jsx
+ <Form.Item
+          label="登录账号"
+          name="loginId"//这里会导致里面Input绑定的value失效，所以要去掉
+          rules={[...
+```
+
