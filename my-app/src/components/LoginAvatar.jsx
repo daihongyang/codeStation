@@ -1,18 +1,32 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Button, Popover, List, Avatar, Image } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, Popover, List, Avatar, message } from 'antd'
 import styles from '../styles/LoginAvatar.module.css'
+import { changeUserStatus, initUserInfo } from '../redux/userSlice'
 export default function LoginAvatar(props) {
+    const dispatch = useDispatch()
     const { isLogin, userInfo } = useSelector(state => {
         return state.user
     })//从仓库获得登录状态
     let showContent = null//最终要显示的内容
+    function handleListClick(item) {
+        if (item === '个人中心') {
+            //进入个人中心
+        }
+        else {
+            //退出登录
+            localStorage.removeItem('userToken')
+            dispatch(initUserInfo({}))
+            dispatch(changeUserStatus(false))
+            message.success('退出成功')
+        }
+    }
     if (isLogin) {
         const content = (<List
             dataSource={['个人中心', '退出登录']}
             size='large'
             renderItem={item => (
-                <List.Item style={{ cursor: 'pointer' }}>
+                <List.Item onClick={() => { handleListClick(item) }} style={{ cursor: 'pointer' }}>
                     {item}
                 </List.Item>
             )}
@@ -20,7 +34,7 @@ export default function LoginAvatar(props) {
         //如果登录了显示头像
         showContent = (<Popover content={content} placement='bottom' >
             <div className={styles.avatarContainer}>
-                <Avatar src={<Image src={userInfo?.avatar}></Image>} size='large' />
+                <Avatar src={userInfo?.avatar} size='large' style={{ cursor: 'pointer' }} />
             </div>
         </Popover >)
     }

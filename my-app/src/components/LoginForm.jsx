@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Radio, Form, Input, Row, Col, Button, Checkbox, message } from 'antd'
 import styles from '../styles/LoginForm.module.css'
 import { useState, useRef, useEffect } from 'react'
-import { getCaptcha, isUserExisted, addUser } from '../api/user'
+import { getCaptcha, isUserExisted, addUser, userLogin, getUserById } from '../api/user'
 import { initUserInfo, changeUserStatus } from '../redux/userSlice'
 import { useDispatch } from 'react-redux'
 export default function LoginForm(props) {
@@ -41,6 +41,10 @@ export default function LoginForm(props) {
       }
       else {
         //如果不存在
+        let pattern = /(滚蛋|傻逼|微信|加群|自杀|习近平+)/
+        if (pattern.test(registerInfo.loginId)) {
+          return Promise.reject('账号存在敏感词汇')
+        }
       }
     }
   }
@@ -75,7 +79,44 @@ export default function LoginForm(props) {
       captchaClickHandle()//更换验证码
     }
   }
-  function loginHandle() { }
+  /**
+   * 登录函数
+   */
+  async function loginHandle() {
+    const res = await userLogin(loginInfo)
+    console.log(res)
+    if (!res.data) {
+      //验证码错误
+      message.warn('验证码错误')
+      captchaClickHandle()
+    }
+    else {
+      //验证码正确
+      if (!res.data.data) {
+        //账号密码错误
+        message.error('账号密码错误')
+        captchaClickHandle()
+      }
+      else if (!res.data.data.enabled) {
+        //账号密码正确 但是被冻结
+        message.warn('该账号已被冻结')
+        captchaClickHandle()
+      }
+      else {
+        //未被冻结的账号
+        if(loginInfo.isRememberMe){
+          //如果用户选择记住我，要进行token存储
+          localStorage.userToken = res.data.token
+        }
+        const result = await getUserById(res.data.data._id)
+        //更改仓库状态
+        dispatch(initUserInfo(result.data))//存入仓库
+        dispatch(changeUserStatus(true))
+        handleCancel()
+        message.success(`欢迎回来! ${result.data.loginId}`)
+      }
+    }
+  }
   /**
    * 组件实现
    * @param {Object} prev 旧的状态
@@ -242,7 +283,7 @@ export default function LoginForm(props) {
           rules={[
             {
               required: true,
-              message: "请输入账号，仅此项为必填项",
+              message: "请输入账号",
             },
             // 验证用户是否已经存在
             { validator: checkLoginIdIsExist },
@@ -250,11 +291,11 @@ export default function LoginForm(props) {
           validateTrigger='onBlur'
         >
           <div>
-          <Input
-            placeholder="请输入账号"
-            value={registerInfo.loginId}
-            onChange={(e) => updateInfo(registerInfo, e.target.value, 'loginId', setRegisterInfo)}
-          />
+            <Input
+              placeholder="请输入账号"
+              value={registerInfo.loginId}
+              onChange={(e) => updateInfo(registerInfo, e.target.value, 'loginId', setRegisterInfo)}
+            />
           </div>
         </Form.Item>
 
@@ -263,11 +304,11 @@ export default function LoginForm(props) {
           name="nickname"
         >
           <div>
-          <Input
-            placeholder="请输入昵称，不填写默认为新用户xxx"
-            value={registerInfo.nickname}
-            onChange={(e) => updateInfo(registerInfo, e.target.value, 'nickname', setRegisterInfo)}
-          />
+            <Input
+              placeholder="请输入昵称，不填写默认为新用户xxx"
+              value={registerInfo.nickname}
+              onChange={(e) => updateInfo(registerInfo, e.target.value, 'nickname', setRegisterInfo)}
+            />
           </div>
         </Form.Item>
 
@@ -328,7 +369,7 @@ export default function LoginForm(props) {
         onCancel={handleCancel}
       >
         {/* TODO：关闭的时候要把radio的value改成1 */}
-        <Radio.Group defaultValue={1} buttonStyle="solid" className={styles.radioGroup}>
+        <Radio.Group defaultValue={1}  buttonStyle="solid" className={styles.radioGroup}>
           <Radio.Button value={1} className={styles.radioButton} onChange={(e) => { setRadioVal(e.target.value); clearInfo() }}>登录</Radio.Button>
           <Radio.Button value={2} className={styles.radioButton} onChange={(e) => { setRadioVal(e.target.value); clearInfo() }}>注册</Radio.Button>
         </Radio.Group>

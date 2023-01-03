@@ -103,3 +103,10 @@ output: {
 
 
 ![image-20230103095012466](C:\Users\Random\AppData\Roaming\Typora\typora-user-images\image-20230103095012466.png)
+
+登录模块和注册模块本质上差不多，无非是表单的验证分为
+
+* 验证码是否正确
+* 账号密码是否正确
+* 账号是否被冻结
+

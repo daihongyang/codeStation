@@ -4,7 +4,7 @@ export const counterSlice = createSlice({
   name: 'user',
   initialState: {
     isLogin: false,//是否登录 默认false未登录
-    userInfo:{}//用户信息
+    userInfo:{}//当前用户信息
   },
   reducers: {
     initUserInfo:(state,{payload})=>{
