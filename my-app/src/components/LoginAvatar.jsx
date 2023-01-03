@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Popover, List, Avatar,Image } from 'antd'
+import { Button, Popover, List, Avatar, Image } from 'antd'
 import styles from '../styles/LoginAvatar.module.css'
 export default function LoginAvatar(props) {
-    const { isLogin,userInfo } = useSelector(state => {
+    const { isLogin, userInfo } = useSelector(state => {
         return state.user
     })//从仓库获得登录状态
     let showContent = null//最终要显示的内容
@@ -20,7 +20,7 @@ export default function LoginAvatar(props) {
         //如果登录了显示头像
         showContent = (<Popover content={content} placement='bottom' >
             <div className={styles.avatarContainer}>
-                <Avatar src={<Image src={userInfo?.avatar}></Image>} size='large'/>
+                <Avatar src={<Image src={userInfo?.avatar}></Image>} size='large' />
             </div>
         </Popover >)
     }

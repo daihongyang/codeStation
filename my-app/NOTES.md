@@ -1,5 +1,13 @@
 # 项目开发记录
 
+## GitHub提交问题
+
+依次输入一下代码
+
+> git config --global --unset http.proxy 
+> git config --global --unset https.proxy
+> git config --global http.sslVerify "false"
+
 ## 一、项目搭建
 
 codeStation仿造思否(segmentDefault)进行页面设计，第一天主要是搭建项目大框和配置路由。
@@ -53,7 +61,11 @@ function updateInfo(prev, info, key, setFuc) {
 
 显示的验证码并不是一成不变的，弹窗关闭再打开会改变，登陆注册的验证码也会有不同，所以useEffect的第二个参数要依赖登录注册radio的value和弹窗显示的状态。
 
-**细节处理：切换登录和注册的时候，input的组件的value绑定会因为Form.Item里面设置的name而导致失效**，解决办法就是把name去掉
+**细节处理1：切换登录和注册的时候，input的组件的value绑定会因为Form.Item里面设置的name而导致失效**，解决办法有三种
+
+* 把name去掉（由于需要name进行表单验证，所以此法不可行）
+* 采用官方的方式form.setFieldsValue
+* 在Input组件和Form.Item之间用元素隔开（例如div）
 
 参考：[(52条消息) react hooks antd Design里input的值变化不更新_ 北岭有燕的博客-CSDN博客](https://blog.csdn.net/qq_41160739/article/details/120553454)
 
@@ -64,3 +76,30 @@ function updateInfo(prev, info, key, setFuc) {
           rules={[...
 ```
 
+**细节处理2：新注册的用户会随机生成一个头像，可在添加新用户的接口中的返回值获取到，但是这个图片路径是一个static开头的路径，想要请求到需要做代理转发，做完代理转发后，webpack的静态文件也是static开头的路径，当webpack打包完成后又会触发代理转发**。所以需要更改webpack文件路径。由于使用cra导致webpack文件配置被隐藏了，需要指令**npm run eject**,值得注意的是eject虽然能把隐藏的文件暴露出来，但是它是**不可逆**的
+
+暴露出来后即可对其进行更改，找到新生成的文件config/webpack.config.js,搜索static
+
+把output中的static开头的路径，改成别的名字即可，我改成了assets
+
+```js
+output: {
+      // The build folder.
+      path: paths.appBuild,
+      // Add /* filename */ comments to generated require()s in the output.
+      pathinfo: isEnvDevelopment,
+      // There will be one main bundle, and one file per asynchronous chunk.
+      // In development, it does not produce real files.
+      filename: isEnvProduction
+        ? 'assets/js/[name].[contenthash:8].js'
+        : isEnvDevelopment && 'assets/js/bundle.js',
+      // There are also additional JS chunk files if you use code splitting.
+      chunkFilename: isEnvProduction
+        ? 'assets/js/[name].[contenthash:8].chunk.js'
+        : isEnvDevelopment && 'assets/js/[name].chunk.js',
+      assetModuleFilename: 'assets/media/[name].[hash][ext]',
+```
+
+
+
+![image-20230103095012466](C:\Users\Random\AppData\Roaming\Typora\typora-user-images\image-20230103095012466.png)

@@ -20,6 +20,11 @@ export function isUserExisted(loginId){
         method:'GET'
     })
 }
+/**
+ * 注册添加新用户
+ * @param {*} userInfo 用户数据 
+ * @returns 内含验证码判断结果 验证码输入错误不会返回数据
+ */
 export function addUser(userInfo){
     return request({
         url:`/api/user`,

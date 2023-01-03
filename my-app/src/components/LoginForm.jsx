@@ -3,14 +3,14 @@ import { Modal, Radio, Form, Input, Row, Col, Button, Checkbox, message } from '
 import styles from '../styles/LoginForm.module.css'
 import { useState, useRef, useEffect } from 'react'
 import { getCaptcha, isUserExisted, addUser } from '../api/user'
-import { initUserInfo,changeUserStatus } from '../redux/userSlice'
+import { initUserInfo, changeUserStatus } from '../redux/userSlice'
 import { useDispatch } from 'react-redux'
 export default function LoginForm(props) {
   const dispatch = useDispatch()
   let [radioVal, setRadioVal] = useState(1)//登录注册页面切换
   let [loginInfo, setLoginInfo] = useState({
     loginId: '',
-    loginPwd: '123456',
+    loginPwd: '',
     captcha: '',
     isRememberMe: false
   })//登录用户信息
@@ -90,18 +90,21 @@ export default function LoginForm(props) {
   }
   //表单数据初始化函数
   function clearInfo() {
-    setRegisterInfo({
-      loginId: '',
-      nickname: '',
-      captcha: ''
-    })
     setLoginInfo({
       loginId: '',
       loginPwd: '',
       captcha: '',
       isRememberMe: false
     })
+    setRegisterInfo({
+      loginId: '',
+      nickname: '',
+      captcha: ''
+    })
   }
+  // function handleValueChange(changeValues,allValues){
+  //   console.log(changeValues,allValues)
+  // }
   //处理关闭函数
   function handleCancel() {
     clearInfo()
@@ -128,11 +131,13 @@ export default function LoginForm(props) {
             },
           ]}
         >
-          <Input
-            placeholder="请输入你的登录账号"
-            value={loginInfo.loginId}
-            onChange={(e) => updateInfo(loginInfo, e.target.value, 'loginId', setLoginInfo)}
-          />
+          <div>
+            <Input
+              placeholder="请输入你的登录账号"
+              value={loginInfo.loginId}
+              onChange={(e) => updateInfo(loginInfo, e.target.value, 'loginId', setLoginInfo)}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item
@@ -145,11 +150,13 @@ export default function LoginForm(props) {
             },
           ]}
         >
-          <Input.Password
-            placeholder="请输入你的登录密码，新用户默认为123456"
-            value={loginInfo.loginPwd}
-            onChange={(e) => updateInfo(loginInfo, e.target.value, 'loginPwd', setLoginInfo)}
-          />
+          <div>
+            <Input.Password
+              placeholder="请输入你的登录密码，新用户默认为123456"
+              value={loginInfo.loginPwd}
+              onChange={(e) => updateInfo(loginInfo, e.target.value, 'loginPwd', setLoginInfo)}
+            />
+          </div>
         </Form.Item>
 
         {/* 验证码 */}
@@ -190,7 +197,7 @@ export default function LoginForm(props) {
         >
           <Checkbox
             onChange={(e) => updateInfo(loginInfo, e.target.checked, 'isRememberMe', setLoginInfo)}
-            checked={loginInfo.remember}
+            checked={loginInfo.isRememberMe}
           >记住我</Checkbox>
         </Form.Item>
 
@@ -227,7 +234,7 @@ export default function LoginForm(props) {
           nickname: '',
           captcha: ''
         }}
-        
+
       >
         <Form.Item
           label="登录账号"
@@ -242,22 +249,26 @@ export default function LoginForm(props) {
           ]}
           validateTrigger='onBlur'
         >
+          <div>
           <Input
             placeholder="请输入账号"
             value={registerInfo.loginId}
             onChange={(e) => updateInfo(registerInfo, e.target.value, 'loginId', setRegisterInfo)}
           />
+          </div>
         </Form.Item>
 
         <Form.Item
           label="用户昵称"
           name="nickname"
         >
+          <div>
           <Input
             placeholder="请输入昵称，不填写默认为新用户xxx"
             value={registerInfo.nickname}
             onChange={(e) => updateInfo(registerInfo, e.target.value, 'nickname', setRegisterInfo)}
           />
+          </div>
         </Form.Item>
 
         <Form.Item
