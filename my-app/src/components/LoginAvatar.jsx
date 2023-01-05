@@ -16,6 +16,7 @@ export default function LoginAvatar(props) {
         else {
             //退出登录
             localStorage.removeItem('userToken')
+            // 清空
             dispatch(initUserInfo({}))
             dispatch(changeUserStatus(false))
             message.success('退出成功')
