@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Popover, List, Avatar, message } from 'antd'
 import styles from '../styles/LoginAvatar.module.css'
 import { changeUserStatus, initUserInfo } from '../redux/userSlice'
+import { useNavigate } from 'react-router-dom'
 export default function LoginAvatar(props) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { isLogin, userInfo } = useSelector(state => {
         return state.user
     })//从仓库获得登录状态
@@ -19,6 +21,7 @@ export default function LoginAvatar(props) {
             // 清空
             dispatch(initUserInfo({}))
             dispatch(changeUserStatus(false))
+            navigate('/')
             message.success('退出成功')
         }
     }

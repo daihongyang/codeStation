@@ -21,7 +21,6 @@ function App() {
       const token = localStorage.getItem('userToken')
       if(token){
         const res = await restoreLoginStatus(token)
-        console.log(res)
         if(!res.data){
           //如果token过期了
           message.warn(res.msg)

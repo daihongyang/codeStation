@@ -63,7 +63,7 @@ export default function LoginForm(props) {
   //注册表单提交函数
   async function registerHandle() {
     const res = await addUser(registerInfo)
-    console.log(res.data)
+    // console.log(res.data)
     if (res.data) {
       //注册成功
       message.success('用户注册成功,默认密码为123456')
@@ -84,7 +84,7 @@ export default function LoginForm(props) {
    */
   async function loginHandle() {
     const res = await userLogin(loginInfo)
-    console.log(res)
+    // console.log(res)
     if (!res.data) {
       //验证码错误
       message.warn('验证码错误')

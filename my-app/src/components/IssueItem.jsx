@@ -7,11 +7,11 @@ import { getUserById } from '../api/user'
 //渲染问答列表的每一项的组件
 export default function IssueItem(props) {
     const colorArr = ["magenta", "red", "cyan", "green", "orange", "blue", "gold", "purple"]//颜色数组
-
     const type = props.typeList.find(item => {
         return item._id === props.issueData.typeId
     })
     const [userInfo, setUserInfo] = useState({})
+    //个人感觉这里有个性能优化点 可以把请求放到外层，减少请求数量
     useEffect(() => {
         async function fetchData(){
           const {data} = await getUserById(props.issueData.userId)

@@ -66,3 +66,10 @@ export function restoreLoginStatus(token){
         method:'GET'
     })
 }
+
+export function getUserByPointRank(){
+    return request({
+        url:'/api/user/pointsrank',
+        method:'GET'
+    })
+}
