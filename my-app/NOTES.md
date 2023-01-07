@@ -142,3 +142,12 @@ output: {
 
 * 时间：写了一个工具函数，将时间戳转化成通用时间
 
+### 3.右侧提问按钮
+
+点击后跳转到/addIssue界面，先配置路由，markdown编辑器采用
+
+> npm install --force @toast-ui/react-editor 
+
+### 4.积分排行榜
+
+前三名需要特殊处理，引入了一个iconfont

@@ -49,7 +49,7 @@
 }
 
 .question h1 {
-    font-weight: 200;
+    font-weight: 700;
     font-size: 24px;
 }
 
@@ -63,11 +63,16 @@
 
 .user {
     margin: 0 15px;
+    color: #1890ff;
+    font-weight: 700;
 }
 
 .content {
     font-weight: 300;
     font-size: 16px;
+}
+.content img{
+    max-width: 100%;
 }
 
 .rightSide {

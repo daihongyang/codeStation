@@ -41,7 +41,7 @@ export default function LoginForm(props) {
       }
       else {
         //如果不存在
-        let pattern = /(滚蛋|傻逼|微信|加群|自杀|习近平+)/
+        let pattern = /(混蛋|傻逼|微信|加群|自杀|习近平|操你|操你妈|共产党|日你|QQ|你妈|杀人+)/
         if (pattern.test(registerInfo.loginId)) {
           return Promise.reject('账号存在敏感词汇')
         }
@@ -251,12 +251,9 @@ export default function LoginForm(props) {
           <Button
             type="primary"
             htmlType="submit"
-            style={{ marginRight: 20 }}
+            style={{ marginRight: 20 ,width:'100%'}}
           >
             登录
-          </Button>
-          <Button type="primary" htmlType="submit">
-            重置
           </Button>
         </Form.Item>
       </Form>
@@ -349,12 +346,9 @@ export default function LoginForm(props) {
           <Button
             type="primary"
             htmlType="submit"
-            style={{ marginRight: 20 }}
+            style={{ marginRight: 20 ,width:'100%'}}
           >
             注册
-          </Button>
-          <Button type="primary" htmlType="submit">
-            重置
           </Button>
         </Form.Item>
       </Form>
@@ -367,6 +361,7 @@ export default function LoginForm(props) {
         open={props.isModalShow}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         {/* TODO：关闭的时候要把radio的value改成1 */}
         <Radio.Group defaultValue={1}  buttonStyle="solid" className={styles.radioGroup}>

@@ -4,8 +4,10 @@ import { formatDate } from '../utils/tools'
 import { Tag } from 'antd'
 import { useEffect, useState } from 'react'
 import { getUserById } from '../api/user'
+import { useNavigate } from 'react-router-dom'
 //渲染问答列表的每一项的组件
 export default function IssueItem(props) {
+    const navigate  = useNavigate()
     const colorArr = ["magenta", "red", "cyan", "green", "orange", "blue", "gold", "purple"]//颜色数组
     const type = props.typeList.find(item => {
         return item._id === props.issueData.typeId
@@ -33,7 +35,7 @@ export default function IssueItem(props) {
             </div>
             {/* 问题内容 */}
             <div className={styles.issueContainer}>
-                <div className={styles.top}>{props.issueData.issueTitle}</div>
+                <div className={styles.top} onClick={()=>{navigate(`/issues/${props.issueData._id}`)}}>{props.issueData.issueTitle}</div>
                 <div className={styles.bottom}>
                     <div className={styles.left}>
                         <Tag color={colorArr[props.typeList.indexOf(type) % colorArr.length]}>{type?.typeName}</Tag>
