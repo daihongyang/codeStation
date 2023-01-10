@@ -49,10 +49,10 @@ export function userLogin(userInfo) {
  * @param {*} id 用户的id
  * @returns 返回用户信息
  */
-export function getUserById(id){
+export function getUserById(id) {
     return request({
-        url:`/api/user/${id}`,
-        method:'GET'
+        url: `/api/user/${id}`,
+        method: 'GET'
     })
 }
 /**
@@ -60,16 +60,29 @@ export function getUserById(id){
  * @param {*} token token值
  * @returns 返回对应用户信息
  */
-export function restoreLoginStatus(token){
+export function restoreLoginStatus(token) {
     return request({
-        url:'/api/user/whoami',
-        method:'GET'
+        url: '/api/user/whoami',
+        method: 'GET'
     })
 }
-
-export function getUserByPointRank(){
+//获取排行榜数据
+export function getUserByPointRank() {
     return request({
-        url:'/api/user/pointsrank',
-        method:'GET'
+        url: '/api/user/pointsrank',
+        method: 'GET'
+    })
+}
+/**
+ * 更新用户信息
+ * @param {*} id 用户id
+ * @param {*} data 要更改的数据
+ * @returns 
+ */
+export function updateUserInfo(id, data) {
+    return request({
+        url: `/api/user/${id}`,
+        method: 'PATCH',
+        data
     })
 }

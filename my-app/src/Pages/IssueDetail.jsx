@@ -49,7 +49,7 @@ export default function IssueDetail() {
                         </div>
                     </div>
                     {/* 左下方：评论 */}
-                    <Discuss issueId={issueInfo?._id}></Discuss>
+                    <Discuss issueId={issueInfo?._id} commentType={1} issueInfo={issueInfo}></Discuss>
                 </div>
                 {/* 右侧 */}
                 <div className={styles.rightSide}>

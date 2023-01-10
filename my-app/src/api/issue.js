@@ -1,7 +1,7 @@
 // 问答模块api
 import request from './request'
 /**
- * 
+ * 根据分页找问答
  * @param {*} params {current:xx,pageSize:xx,issueStatus:xx}
  * @returns 
  */
@@ -17,10 +17,10 @@ export function getIssuesInfoByPage(params) {
  * @param {*} data 添加的提问信息
  * @returns 
  */
-export function addIssue(data){
+export function addIssue(data) {
     return request({
-        url:'/api/issue/',
-        method:'POST',
+        url: '/api/issue/',
+        method: 'POST',
         data
     })
 }
@@ -30,9 +30,22 @@ export function addIssue(data){
  * @param {*} id 用户的id 
  * @returns 
  */
-export function getIssueById(id){
+export function getIssueById(id) {
     return request({
-        url:`/api/issue/${id}`,
-        method:'GET'
+        url: `/api/issue/${id}`,
+        method: 'GET'
+    })
+}
+/**
+ * 更新问答数据
+ * @param {*} id 问答id
+ * @param {*} data 要更改的数据
+ * @returns 
+ */
+export function updateIssue(id, data) {
+    return request({
+        url: `/api/issue/${id}`,
+        method: 'PATCH',
+        data
     })
 }
