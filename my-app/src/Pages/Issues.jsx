@@ -7,7 +7,7 @@ import { useState } from 'react'
 import IssueItem from '../components/IssueItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTypeList } from '../redux/typeSlice'
-import { Pagination } from 'antd'
+import { Pagination, Skeleton } from 'antd'
 import Recommend from '../components/Recommend'
 import AddIssueBtn from '../components/AddIssueBtn'
 import RankList from '../components/RankList'
@@ -61,6 +61,9 @@ export default function Issues() {
   let issueList = []
   for (let i = 0; i < issueData.length; i++) {
     issueList.push(<IssueItem key={i} issueData={issueData[i]} typeList={typeList} />)
+  }
+  if(!issueList.length){
+    issueList = <Skeleton/>
   }
 
   return (

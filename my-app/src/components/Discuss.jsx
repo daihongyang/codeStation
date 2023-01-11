@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Comment, Avatar, Form, Button, List, Tooltip, message, Pagination, Empty } from 'antd'
+import { Comment, Avatar, Form, Button, List, Tooltip, message, Pagination, Empty,Skeleton  } from 'antd'
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from 'react-redux'
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-import { getCommentFromIssue, addComment } from '../api/comment'
+import { getCommentFromIssue, addComment, getCommentFromBook } from '../api/comment'
 import { getUserById } from '../api/user';
 import { formatDate } from '../utils/tools'
 import { updateIssue } from '../api/issue';
+import { updateBookInfo } from '../api/book';
 import { useDispatch } from 'react-redux';
 import { updatePoints } from '../redux/userSlice'
 import styles from '../styles/Discuss.module.css'
@@ -68,29 +69,44 @@ export default function Discuss(props) {
         }
         //渲染书籍详情页评论
         else {
-
+            let data = null
+            async function fetchData() {
+                const res = await getCommentFromBook(props.bookId, {
+                    current: pageInfo.current,
+                    pageSize: pageInfo.pageSize
+                })
+                // console.log(res.data)
+                data = res.data
+                for (let i = 0; i < data.data.length; i++) {
+                    const result = await getUserById(data.data[i].userId)
+                    data.data[i].userInfo = result.data//将有用户名字的数据存进去覆盖之前的
+                }
+                setCommentList(data.data)
+                setPageInfo({
+                    current: data.currentPage,
+                    pageSize: data.eachPage,
+                    total: data.count,
+                })
+            }
+            if (props.bookId) {
+                fetchData()
+            }
         }
 
 
-
-    }, [props.issueId, refresh,pageInfo.pageSize,pageInfo.current])
+    }, [props.issueId, props.bookId, refresh, pageInfo.pageSize, pageInfo.current])
+    // console.log(commentList)
     //提交评论按钮
     function handleComment() {
         let content
-        if (props.commentType === 1) {
-            //问答详情页的评论
-            content = editorRef.current.getInstance().getHTML()
-            if (content === '<p><br></p>') {
-                //当评论为空的时候会有换行，需要进行判断
-                content = ''
-            }
-            if (!content) {
-                message.warn('评论不能为空')
-                return
-            }
+        content = editorRef.current.getInstance().getHTML()
+        if (content === '<p><br></p>') {
+            //当评论为空的时候会有换行，需要进行判断
+            content = ''
         }
-        else {
-            //书籍详情页的评论
+        if (!content) {
+            message.warn('评论不能为空')
+            return
         }
         //添加评论
         addComment({
@@ -98,17 +114,24 @@ export default function Discuss(props) {
             typeId: props.issueInfo ? props.issueInfo.typeId : props.bookInfo.typeId,
             commentContent: content,
             commentType: props.commentType,
-            bookId: null,
-            issueId: props.issueId
+            bookId: props.bookId ? props.bookId : null,
+            issueId: props.issueId ? props.issueId : null
         })
         //更改状态重新获取评论列表
         setRefresh(!refresh)
         //清空评论框
         editorRef.current.getInstance().setHTML('')
         //更改评论数
-        updateIssue(props.issueId, {
-            commentNumber: props.issueId ? ++props.issueInfo.commentNumber : ++props.bookInfo.commentNumber
-        })
+        if (props.issueId) {
+            updateIssue(props.issueId, {
+                commentNumber: ++props.issueInfo.commentNumber
+            })
+        }
+        else if (props.bookId) {
+            updateBookInfo(props.bookId, {
+                commentNumber: ++props.bookInfo.commentNumber
+            })
+        }
         //更改用户积分
         dispatch(updatePoints({
             userId: userInfo._id,
@@ -182,7 +205,7 @@ export default function Discuss(props) {
                 />
             }
             {
-                
+
                 commentList.length > 0 ? (<div className={styles.paginationContainer}>
                     <Pagination
                         showQuickJumper
@@ -193,7 +216,7 @@ export default function Discuss(props) {
                         onChange={handlePageChange}>
                     </Pagination>
                 </div>
-                ) : (<Empty description='暂无评论'/>)
+                ) : (<Empty description='暂无评论' />)
             }
         </div>
     )

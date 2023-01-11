@@ -1,60 +1,46 @@
-.bookInfoContainer {
+.bookDetailContainer {
     width: 100%;
     /* outline: 1px solid; */
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
-.leftSide {
-    width: 35%;
-
+.bookInfo{
+    display: flex;
+    padding: 100px;
 }
-
-.img {
+.bookDesc{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    width: 40%;
+}
+.bookPic{
+    display: flex;
+    flex-direction: column;
+    width: 172px;
+    height: 237px;
+    align-items: center;
+}
+.link{
+    margin-top: 20px;
+}
+.bookTitle{
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.bookStatus{
+    width: 40%;
+    display: flex;
+    border-left: 1px solid #ccc;
+    max-height: 200px;
+}
+.num{
     text-align: center;
-    height: 350px;
-    box-shadow: 0 0 1px #ccc;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    color: rgb(24, 144, 255);
 }
-
-.link {
-    height: 50px;
-    /* outline: 1px solid blue; */
-    text-align: center;
-    line-height: 50px;
-}
-
-.rightSide {
-    width: 63%;
-    height: 100%;
-    /* outline: 1px solid red; */
-    padding: 0 20px;
-}
-
-.title {
-    font-weight: 200;
-    margin: 20px 0;
-}
-
-.rightSide p {
-    font-weight: 200;
-    margin-bottom: 0;
-}
-
-.comment {
+.bookComment{
     padding: 50px;
-}
-
-.requirePoints {
-    font-size: 18px;
-    color: #f00;
-    font-style: italic;
-    font-weight: 400;
-}
-
-.downloadLink {
-    color: #4091f7;
-    cursor: pointer;
 }

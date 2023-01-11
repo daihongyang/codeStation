@@ -5,8 +5,10 @@ import { Tag } from 'antd'
 import { useEffect, useState } from 'react'
 import { getUserById } from '../api/user'
 import { useNavigate } from 'react-router-dom'
+import { updateIssue } from '../api/issue'
 //渲染问答列表的每一项的组件
 export default function IssueItem(props) {
+    // console.log(props.issueData)
     const navigate  = useNavigate()
     const colorArr = ["magenta", "red", "cyan", "green", "orange", "blue", "gold", "purple"]//颜色数组
     const type = props.typeList.find(item => {
@@ -21,6 +23,12 @@ export default function IssueItem(props) {
         }
         fetchData()
     }, [])
+    function handleClick(){
+        navigate(`/issues/${props.issueData._id}`)
+        updateIssue(props.issueData._id,{
+            scanNumber: ++props.issueData.scanNumber
+          })
+    }
     return (
         <div className={styles.container}>
             {/* 回答数 */}
@@ -35,7 +43,7 @@ export default function IssueItem(props) {
             </div>
             {/* 问题内容 */}
             <div className={styles.issueContainer}>
-                <div className={styles.top} onClick={()=>{navigate(`/issues/${props.issueData._id}`)}}>{props.issueData.issueTitle}</div>
+                <div className={styles.top} onClick={handleClick}>{props.issueData.issueTitle}</div>
                 <div className={styles.bottom}>
                     <div className={styles.left}>
                         <Tag color={colorArr[props.typeList.indexOf(type) % colorArr.length]}>{type?.typeName}</Tag>

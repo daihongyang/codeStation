@@ -3,10 +3,18 @@
     margin: 0 auto;
     /* outline: 1px solid red; */
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content:space-between;
+  
 }
 
+.bookItem{
+    display: grid;
+    padding: 20px;
+    grid-template-columns: repeat(3,1fr);
+    gap: 40px 20px;
+}
 .numberContainer{
     display: flex;
     justify-content:space-between;

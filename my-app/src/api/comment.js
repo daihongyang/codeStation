@@ -27,4 +27,18 @@ export function addComment(params) {
         data: params
     })
 }
-
+/**
+ * 获取某本书的评论
+ * @param {*} id 书的id
+ * @param {*} params {current:xx,pageSize:xx}
+ * @returns 
+ */
+export function getCommentFromBook(id,params){
+    return request({
+        url:`/api/comment/bookcomment/${id}`,
+        method:'GET',
+        params:{
+            ...params
+        }
+    })
+}
