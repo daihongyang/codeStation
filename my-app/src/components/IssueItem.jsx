@@ -11,6 +11,7 @@ export default function IssueItem(props) {
     // console.log(props.issueData)
     const navigate  = useNavigate()
     const colorArr = ["magenta", "red", "cyan", "green", "orange", "blue", "gold", "purple"]//颜色数组
+    // console.log(props.typeList,'有值吗')
     const type = props.typeList.find(item => {
         return item._id === props.issueData.typeId
     })

@@ -20,7 +20,7 @@ function App() {
     async function fetchData(){
       const token = localStorage.getItem('userToken')
       if(token){
-        const res = await restoreLoginStatus(token)
+        const res = await restoreLoginStatus()
         if(!res.data){
           //如果token过期了
           message.warn(res.msg)

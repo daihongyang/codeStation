@@ -6,7 +6,7 @@ import { updateBookInfo } from '../api/book';
 export default function BookItem(props) {
   // console.log(props.bookInfo)
   const reg = /<[^<>]+>/g;
-  let bookIntro = props.bookInfo.bookIntro.replace(reg, "");
+  let bookIntro = props.bookInfo?.bookIntro.replace(reg, "");
   bookIntro = bookIntro.replace(/^内容简介|内容介绍/,'')
   const navigate = useNavigate()
   function handleClick(){

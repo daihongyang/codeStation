@@ -57,10 +57,9 @@ export function getUserById(id) {
 }
 /**
  * 恢复登录
- * @param {*} token token值
  * @returns 返回对应用户信息
  */
-export function restoreLoginStatus(token) {
+export function restoreLoginStatus() {
     return request({
         url: '/api/user/whoami',
         method: 'GET'
