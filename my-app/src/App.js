@@ -4,7 +4,7 @@ import FooterComp from './components/FooterComp'
 import NavComp from './components/NavComp'
 import Layout from 'antd/lib/layout/layout';
 import { Header, Content, Footer } from 'antd/lib/layout/layout';
-import  RouterConfig  from './Router/index.jsx'
+import  RouterGuard  from './Router/RouterGuard.jsx'
 import { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import { useEffect } from 'react';
@@ -56,7 +56,7 @@ function App() {
           <NavComp handleModal={handleModal} />
         </Header>
         <Content className='content'>
-          <RouterConfig />
+          <RouterGuard />
         </Content>
         <Footer className='footer'>
           <FooterComp />

@@ -17,6 +17,7 @@
     /* outline:1px solid blue; */
     position: sticky;
     top: 80px;
+    border-right: 1px solid #ccc;
 }
 
 .rightSide{

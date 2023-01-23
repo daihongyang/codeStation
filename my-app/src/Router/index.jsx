@@ -6,6 +6,7 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import SearchPage from '../Pages/SearchPage.jsx'
 import IssueDetail from '../Pages/IssueDetail.jsx'
 import BookDetail from '../Pages/BookDetail.jsx'
+import AddIssue  from '../Pages/AddIssue'
 function RouterConfig() {
     return <Routes>
         <Route path='/issues' element={<Issues />}></Route>
@@ -14,7 +15,7 @@ function RouterConfig() {
         <Route path='/Book' element={<Book />}></Route>
         <Route path='/Book/:id' element={<BookDetail />}></Route>
         <Route path='/Interviews' element={<Interviews />}></Route>
-        <Route path='/Interviews' element={<Interviews />}></Route>
+        <Route path='/addIssue' element={<AddIssue />}></Route>
         <Route path='/search' element={<SearchPage />}></Route>
         <Route path='/' element={<Navigate to='/issues' replace></Navigate>}></Route>
     </Routes>
