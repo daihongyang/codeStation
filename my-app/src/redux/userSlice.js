@@ -3,8 +3,13 @@ import { updateUserInfo } from '../api/user'
 /**
  * 派发更新
  */
-export const updatePoints = createAsyncThunk('user/updatePoints',
-  async (payload, thunkApi) => {
+export const updateUserToNewInfo = createAsyncThunk('user/updateUserToNewInfo',
+/**
+ * 更新用户的仓库数据以及云端数据
+ * @param {*} payload {userId:用户的id，newInfo:{key:value}}
+ * @param {*} thunkApi 
+ */  
+async (payload, thunkApi) => {
     await updateUserInfo(payload.userId, payload.newInfo)
     thunkApi.dispatch(updateUser(payload.newInfo))
   }
@@ -30,7 +35,7 @@ export const userSlice = createSlice({
       state.isLogin = payload
     },
     updateUser: (state, { payload }) => {
-      for (const key of payload) {
+      for (let key in payload) {
         state.userInfo[key] = payload[key]
       }
     }

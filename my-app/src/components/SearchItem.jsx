@@ -24,7 +24,6 @@ export default function SearchItem(props) {
 
     }
     else if (props.itemInfo.issueTitle) {
-        console.log('issueTitle')
         searchList = <IssueItem issueData={props.itemInfo} typeList={typeList}></IssueItem>
     }
     return (

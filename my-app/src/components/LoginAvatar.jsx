@@ -14,6 +14,7 @@ export default function LoginAvatar(props) {
     function handleListClick(item) {
         if (item === '个人中心') {
             //进入个人中心
+            navigate('/Personal')
         }
         else {
             //退出登录

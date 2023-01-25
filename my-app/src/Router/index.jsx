@@ -7,6 +7,7 @@ import SearchPage from '../Pages/SearchPage.jsx'
 import IssueDetail from '../Pages/IssueDetail.jsx'
 import BookDetail from '../Pages/BookDetail.jsx'
 import AddIssue  from '../Pages/AddIssue'
+import Personal from '../Pages/Personal.jsx'
 function RouterConfig() {
     return <Routes>
         <Route path='/issues' element={<Issues />}></Route>
@@ -17,6 +18,7 @@ function RouterConfig() {
         <Route path='/Interviews' element={<Interviews />}></Route>
         <Route path='/addIssue' element={<AddIssue />}></Route>
         <Route path='/search' element={<SearchPage />}></Route>
+        <Route path='/Personal' element={<Personal />}></Route>
         <Route path='/' element={<Navigate to='/issues' replace></Navigate>}></Route>
     </Routes>
 }

@@ -85,3 +85,20 @@ export function updateUserInfo(id, data) {
         data
     })
 }
+
+/**
+ * 检查密码是否正确
+ * @param {*} userId 用户id
+ * @param {*} loginPwd 要验证的密码
+ * @returns 
+ */
+export function checkUserPassword(userId,loginPwd){
+    return request({
+        url:'/api/user/passwordcheck',
+        method:'POST',
+        data:{
+            userId,
+            loginPwd
+        }
+    })
+}

@@ -33,7 +33,7 @@ export const configArr =  [
         isNeedLogin:false
     },
     {
-        path:'personal',
+        path:'/Personal',
         isNeedLogin:true
     },
     {

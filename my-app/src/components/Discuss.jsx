@@ -10,7 +10,7 @@ import { formatDate } from '../utils/tools'
 import { updateIssue } from '../api/issue';
 import { updateBookInfo } from '../api/book';
 import { useDispatch } from 'react-redux';
-import { updatePoints } from '../redux/userSlice'
+import { updateUserToNewInfo } from '../redux/userSlice'
 import styles from '../styles/Discuss.module.css'
 /**
  * 根据类型来显示不同的评论区组件
@@ -133,7 +133,7 @@ export default function Discuss(props) {
             })
         }
         //更改用户积分
-        dispatch(updatePoints({
+        dispatch(updateUserToNewInfo({
             userId: userInfo._id,
             newInfo: {
                 points: userInfo.points + 2

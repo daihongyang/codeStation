@@ -6,7 +6,7 @@ import { Image, Collapse, Statistic, Row, Col, message  } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTypeList } from '../redux/typeSlice'
 import Discuss from '../components/Discuss'
-import { updatePoints } from '../redux/userSlice'
+import { updateUserToNewInfo } from '../redux/userSlice'
 import { formatDate } from '../utils/tools'
 export default function BookDetail() {
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ export default function BookDetail() {
         e.preventDefault()
       }
       else{
-        dispatch(updatePoints({
+        dispatch(updateUserToNewInfo({
           userId: userInfo._id,
           newInfo: {
               points: userInfo.points - bookInfo.requirePoints
