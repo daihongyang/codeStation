@@ -42,7 +42,6 @@ export default function NavComp(props) {
         <NavLink className='navigation' to='/issues'>问答</NavLink>
         <NavLink className='navigation' to='/book'>书籍</NavLink>
         <NavLink className='navigation' to='/interviews'>面试</NavLink>
-        <NavLink className='navigation' to='/column'>专栏</NavLink>
       </nav>
       {/* 搜索框 */}
       <div className="searchContainer">

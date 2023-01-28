@@ -16,7 +16,7 @@ export default function RouterGuard() {
         return item.path === location.pathname
     })[0]
     let router = null
-    if(config.isNeedLogin&&!localStorage.getItem('userToken')){
+    if(config?.isNeedLogin&&!localStorage.getItem('userToken')){
         //如果需要登录但是没登陆
         router = <Alert
         message="codeStation"

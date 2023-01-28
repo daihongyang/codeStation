@@ -1,5 +1,5 @@
 .bookContainer{
-    width: 90%;
+    /* width: 90%; */
     margin: 0 auto;
     /* outline: 1px solid red; */
     display: flex;
@@ -11,7 +11,6 @@
 
 .bookItem{
     display: grid;
-    padding: 20px;
     grid-template-columns: repeat(3,1fr);
     gap: 40px 20px;
 }

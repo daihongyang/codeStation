@@ -28,7 +28,7 @@ function BookSearch(props) {
                 </div>
                 {/* 右侧分为上下 */}
                 <div className={styles.right} style={{cursor:'pointer'}}>
-                    <div className={styles.top} onClick={() => navigate(`/Book/${props.bookInfo._id}`)}>{props.bookInfo.bookTitle}</div>
+                    <div className={styles.top} onClick={() => navigate(`/book/${props.bookInfo._id}`)}>{props.bookInfo.bookTitle}</div>
                     <div className={styles.bottom}>{bookIntro.slice(0,55) + "..."}</div>
                 </div>
             </div>

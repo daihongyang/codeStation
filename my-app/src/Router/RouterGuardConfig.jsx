@@ -9,19 +9,15 @@ export const configArr =  [
         isNeedLogin: false
     },
     {
-        path:'/Column',
+        path:'/book',
         isNeedLogin:false
     },
     {
-        path:'/Book',
+        path:'/book/:id',
         isNeedLogin:false
     },
     {
-        path:'Book/:id',
-        isNeedLogin:false
-    },
-    {
-        path:'/Interviews',
+        path:'/interviews',
         isNeedLogin:false
     },
     {
@@ -33,7 +29,7 @@ export const configArr =  [
         isNeedLogin:false
     },
     {
-        path:'/Personal',
+        path:'/personal',
         isNeedLogin:true
     },
     {

@@ -10,7 +10,7 @@ export default function BookItem(props) {
   bookIntro = bookIntro.replace(/^内容简介|内容介绍/,'')
   const navigate = useNavigate()
   function handleClick(){
-    navigate(`/Book/${props.bookInfo?._id}`)
+    navigate(`/book/${props.bookInfo?._id}`)
     updateBookInfo(props.bookInfo._id,{
       scanNumber: ++props.bookInfo.scanNumber
     })
